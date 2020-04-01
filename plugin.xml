@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-plugin-shareutil" version="0.2.3">
+    <name>Shareutil</name>
+    <description>Cordova Shareutil Plugin</description>
+    <license>MIT</license>
+    <keywords>cordova,share</keywords>
+    <js-module src="www/shareutil.js" name="shareutil">
+        <clobbers target="shareutil" />
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Shareutil" >
+                <param name="android-package" value="kr.sejiwork.cordova.shareutil.Shareutil"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/Shareutil.java" target-dir="src/kr/sejiwork/cordova/shareutil" />
+    </platform>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Shareutil">
+                <param name="ios-package" value="KSJShareutil"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/KSJShareutil.h" />
+        <source-file src="src/ios/KSJShareutil.m" />
+    </platform>
+
+</plugin>
