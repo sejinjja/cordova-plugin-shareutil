@@ -44,7 +44,7 @@ public class Shareutil extends CordovaPlugin {
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_STREAM, base64);
         sendIntent.setType(mimeType);
-        cordova.getActivity().startActivity(Intent.createChooser(sendIntent, text));
+        cordova.getActivity().startActivity(Intent.createChooser(sendIntent, "Share Image"));
         callbackContext.success();
         } catch(Error e) {
             callbackContext.error(e.getMessage());
