@@ -8,7 +8,7 @@ import org.json.JSONException;
 
 import android.content.Intent;
 
-public class ShareUtil extends CordovaPlugin {
+public class Shareutil extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
