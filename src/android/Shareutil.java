@@ -32,7 +32,7 @@ public class Shareutil extends CordovaPlugin {
 			sendIntent.setType("plain/text");
 			cordova.getActivity().startActivity(Intent.createChooser(sendIntent, text));
 			callbackContext.success();
-		} catch (Error e) {
+		} catch (Exception e) {
 			callbackContext.error(getPrintStackTrace(e));
 		}
 	}
@@ -45,7 +45,7 @@ public class Shareutil extends CordovaPlugin {
 			sendIntent.setType(mimeType);
 			cordova.getActivity().startActivity(Intent.createChooser(sendIntent, "Share Image"));
 			callbackContext.success();
-		} catch (Error e) {
+		} catch (Exception e) {
 			callbackContext.error(getPrintStackTrace(e));
 		}
 	}
