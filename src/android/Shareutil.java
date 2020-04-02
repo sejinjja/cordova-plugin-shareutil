@@ -17,10 +17,12 @@ public class Shareutil extends CordovaPlugin {
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 		if ("shareText".equals(action)) {
 			String text = data.getString(0);
+			this.share(text, callbackContext);
 			return true;
 		} else if ("shareImg".equals(action)) {
 			String base64 = data.getString(0);
 			String mimeType = data.getString(1);
+			this.share(base64, mimeType, callbackContext);
 			return true;
 		}
 		return false;
