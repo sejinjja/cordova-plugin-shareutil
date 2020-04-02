@@ -33,7 +33,7 @@ public class Shareutil extends CordovaPlugin {
 			Intent sendIntent = new Intent();
 			sendIntent.setAction(Intent.ACTION_SEND);
 			sendIntent.putExtra(Intent.EXTRA_TEXT, text);
-			sendIntent.setType("plain/text");
+			sendIntent.setType("text/plain");
 			cordova.getActivity().startActivity(Intent.createChooser(sendIntent, text));
 			callbackContext.success();
 		} catch (Exception e) {
