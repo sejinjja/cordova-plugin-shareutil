@@ -16,8 +16,7 @@
         NSArray* dataToShare = @[text];
 
         UIActivityViewController* activityViewController =
-        [[UIActivityViewController alloc] initWithActivityItems:dataToShare
-                                          applicationActivities:nil];
+        [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
         // fix crash on iOS8
         if (IsAtLeastiOSVersion(@"8.0")) {
@@ -47,9 +46,7 @@
         UIImage* img = [UIImage imageWithData:data];
         NSArray* dataToShare = @[img];
 
-        UIActivityViewController* activityViewController =
-        [[UIActivityViewController alloc] initWithActivityItems:dataToShare
-                                          applicationActivities:nil];
+        UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
         // fix crash on iOS8
         if (IsAtLeastiOSVersion(@"8.0")) {
