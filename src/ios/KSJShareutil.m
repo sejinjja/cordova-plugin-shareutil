@@ -10,9 +10,8 @@
     NSString *text = [command.arguments objectAtIndex:0];
 
     CDVPluginResult* result = nil;
-/*
     if (text != nil && [text length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         NSArray* dataToShare = @[text];
 
         UIActivityViewController* activityViewController =
@@ -25,11 +24,10 @@
 
         [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
     } else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-*/
 
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
 }
 
@@ -40,9 +38,8 @@
     NSString *base64 = [command.arguments objectAtIndex:0];
     NSString *mimeType = [command.arguments objectAtIndex:1];
     CDVPluginResult* result = nil;
-/*
     if (base64 != nil && [base64 length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         NSData *data = [[NSData alloc]initWithBase64EncodedString:base64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
         UIImage* img = [UIImage imageWithData:data];
         NSArray* dataToShare = @[img];
@@ -56,10 +53,9 @@
 
         [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
     } else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
-*/
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
 }
 
