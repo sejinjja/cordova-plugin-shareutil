@@ -64,11 +64,10 @@ public class Shareutil extends CordovaPlugin {
 		  Log.e("cordova-plugin-shareutil", "Intent sendIntent");
 			sendIntent.setAction(Intent.ACTION_SEND);
 		  Log.e("cordova-plugin-shareutil", "sendIntent.setAction(Intent.ACTION_SEND);");
-			sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(decodedBase64File));
-
 			CordovaUri imageUri = new CordovaUri(FileProvider.getUriForFile(cordova.getActivity(),
                       applicationId + ".provider",
                       decodedBase64File));
+			sendIntent.putExtra(Intent.EXTRA_STREAM, imageUri.getCorrectUri());
 
 
 		  Log.e("cordova-plugin-shareutil", "sendIntent.putExtra(Intent.EXTRA_STREAM, imageUri.getCorrectUri());");
