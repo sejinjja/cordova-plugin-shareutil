@@ -65,11 +65,12 @@ public class Shareutil extends CordovaPlugin {
 	private static File saveImage(final Context context, final String imageData) {
       final byte[] imgBytesData = android.util.Base64.decode(imageData, android.util.Base64.DEFAULT);
 
-      final File file = File.createTempFile("tempImageForShare", null, context.getCacheDir());
       final FileOutputStream fileOutputStream;
+      final File file;
       try {
+          file = File.createTempFile("tempImageForShare", null, context.getCacheDir());
           fileOutputStream = new FileOutputStream(file);
-      } catch (FileNotFoundException e) {
+      } catch (Exception e) {
           e.printStackTrace();
           return null;
       }
