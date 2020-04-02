@@ -11,17 +11,24 @@ import java.io.StringWriter;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import org.apache.cordova.BuildHelper;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
+
 public class Shareutil extends CordovaPlugin {
+  private String applicationId;
+
 	@Override
 	public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
+    this.applicationId = (String) BuildHelper.getBuildConfigValue(cordova.getActivity(), "APPLICATION_ID");
+    this.applicationId = preferences.getString("applicationId", this.applicationId);
 		if ("shareText".equals(action)) {
 			String text = data.getString(0);
 			this.share(text, callbackContext);
@@ -58,7 +65,13 @@ public class Shareutil extends CordovaPlugin {
 			sendIntent.setAction(Intent.ACTION_SEND);
 		  Log.e("cordova-plugin-shareutil", "sendIntent.setAction(Intent.ACTION_SEND);");
 			sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(decodedBase64File));
-		  Log.e("cordova-plugin-shareutil", "sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(decodedBase64File));");
+
+			CordovaUri imageUri = new CordovaUri(FileProvider.getUriForFile(cordova.getActivity(),
+                      applicationId + ".provider",
+                      decodedBase64File));
+
+
+		  Log.e("cordova-plugin-shareutil", "sendIntent.putExtra(Intent.EXTRA_STREAM, imageUri.getCorrectUri());");
 			sendIntent.setType(mimeType);
 		  Log.e("cordova-plugin-shareutil", "sendIntent.setType(mimeType);");
 			cordova.getActivity().startActivity(Intent.createChooser(sendIntent, "Share Image"));
