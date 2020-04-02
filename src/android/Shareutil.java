@@ -71,6 +71,7 @@ public class Shareutil extends CordovaPlugin {
 	}
 
 	private static File saveImage(final Context context, final String imageData) {
+		  Log.e("imageData", imageData);
       final byte[] imgBytesData = android.util.Base64.decode(imageData, android.util.Base64.DEFAULT);
 
       final FileOutputStream fileOutputStream;
