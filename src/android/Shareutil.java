@@ -50,13 +50,21 @@ public class Shareutil extends CordovaPlugin {
 
 	private void share(String base64, String mimeType, CallbackContext callbackContext) {
 		try {
+		  Log.e("cordova-plugin-shareutil", "init");
 		  File decodedBase64File = this.saveImage(cordova.getActivity().getApplicationContext(), base64);
+		  Log.e("cordova-plugin-shareutil", "decodedBase64File");
 			Intent sendIntent = new Intent();
+		  Log.e("cordova-plugin-shareutil", "Intent sendIntent");
 			sendIntent.setAction(Intent.ACTION_SEND);
+		  Log.e("cordova-plugin-shareutil", "sendIntent.setAction(Intent.ACTION_SEND);");
 			sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(decodedBase64File));
+		  Log.e("cordova-plugin-shareutil", "sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(decodedBase64File));");
 			sendIntent.setType(mimeType);
+		  Log.e("cordova-plugin-shareutil", "sendIntent.setType(mimeType);");
 			cordova.getActivity().startActivity(Intent.createChooser(sendIntent, "Share Image"));
+		  Log.e("cordova-plugin-shareutil", "cordova");
 			callbackContext.success();
+		  Log.e("cordova-plugin-shareutil", "callbackContext");
 		} catch (Exception e) {
 			callbackContext.error(getPrintStackTrace(e));
 		}
