@@ -51,12 +51,11 @@ public class Shareutil extends CordovaPlugin {
 		}
 	}
 
+	private static String getPrintStackTrace(Exception e) {
+		StringWriter errors = new StringWriter();
+		e.printStackTrace(new PrintWriter(errors));
+		Log.e("cordova-plugin-shareutil", errors.toString());
 
-  private static String getPrintStackTrace(Exception e) {
-    StringWriter errors = new StringWriter();
-    e.printStackTrace(new PrintWriter(errors));
-	  Log.e("cordova-plugin-shareutil", errors.toString());
-
-    return errors.toString();
-  }
+		return errors.toString();
+	}
 }
