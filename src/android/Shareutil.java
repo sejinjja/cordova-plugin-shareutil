@@ -18,6 +18,7 @@ import org.apache.cordova.CallbackContext;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
@@ -82,14 +83,14 @@ public class Shareutil extends CordovaPlugin {
 		}
 	}
 
-	private static File saveImage(final Context context, final String imageData) {
+	private File saveImage(final Context context, final String imageData) {
 		  Log.e("imageData", imageData);
       final byte[] imgBytesData = android.util.Base64.decode(imageData, android.util.Base64.DEFAULT);
 
       final FileOutputStream fileOutputStream;
       final File file;
       try {
-          file = File.createTempFile("tempImageForShare", null, context.getCacheDir());
+          file = File.createTempFile("tempImageForShare", null, new File(this.getTempDirectoryPath()));
           fileOutputStream = new FileOutputStream(file);
       } catch (Exception e) {
           e.printStackTrace();
@@ -119,4 +120,21 @@ public class Shareutil extends CordovaPlugin {
 
 		return errors.toString();
 	}
+
+  private String getTempDirectoryPath() {
+      File cache = null;
+
+      // SD Card Mounted
+      if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+          cache = cordova.getActivity().getExternalCacheDir();
+      }
+      // Use internal storage
+      else {
+          cache = cordova.getActivity().getCacheDir();
+      }
+
+      // Create the cache directory if it doesn't exist
+      cache.mkdirs();
+      return cache.getAbsolutePath();
+  }
 }
