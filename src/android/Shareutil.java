@@ -49,7 +49,7 @@ public class Shareutil extends CordovaPlugin {
 
 	private void share(String base64, String mimeType, CallbackContext callbackContext) {
 		try {
-		  File decodedBase64File = this.saveImage(cordova.getActivity().getApplicationContext(), base64)
+		  File decodedBase64File = this.saveImage(cordova.getActivity().getApplicationContext(), base64);
 			Intent sendIntent = new Intent();
 			sendIntent.setAction(Intent.ACTION_SEND);
 			sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(decodedBase64File));
