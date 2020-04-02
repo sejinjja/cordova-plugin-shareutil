@@ -6,7 +6,6 @@
 - (void) shareText:(CDVInvokedUrlCommand*)command{
 
     // Get the call back ID and echo argument
-    NSString *callbackId  = [command callbackId];
     NSString *text = [command.arguments objectAtIndex:0];
 
     CDVPluginResult* result = nil;
@@ -34,7 +33,6 @@
 - (void) shareImg:(CDVInvokedUrlCommand*)command{
 
     // Get the call back ID and echo argument
-    NSString *callbackId  = [command callbackId];
     NSString *base64 = [command.arguments objectAtIndex:0];
     NSString *mimeType = [command.arguments objectAtIndex:1];
     CDVPluginResult* result = nil;

@@ -7,7 +7,7 @@
   <license>MIT</license>
   <keywords>cordova,share</keywords>
   <js-module src="www/shareutil.js" name="shareutil">
-    <clobbers target="shareutil"/>
+    <clobbers target="window.shareutil"/>
   </js-module>
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
