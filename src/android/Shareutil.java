@@ -1,10 +1,13 @@
 package kr.sejiwork.cordova.shareutil;
 
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CallbackContext;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CallbackContext;
 
 import android.content.Intent;
 
@@ -30,7 +33,7 @@ public class Shareutil extends CordovaPlugin {
 			cordova.getActivity().startActivity(Intent.createChooser(sendIntent, text));
 			callbackContext.success();
 		} catch (Error e) {
-			callbackContext.error(e.getMessage());
+			callbackContext.error(getPrintStackTrace(e));
 		}
 	}
 
@@ -43,7 +46,15 @@ public class Shareutil extends CordovaPlugin {
 			cordova.getActivity().startActivity(Intent.createChooser(sendIntent, "Share Image"));
 			callbackContext.success();
 		} catch (Error e) {
-			callbackContext.error(e.getMessage());
+			callbackContext.error(getPrintStackTrace(e));
 		}
 	}
+
+
+  private static String getPrintStackTrace(Exception e) {
+    StringWriter errors = new StringWriter();
+    e.printStackTrace(new PrintWriter(errors));
+
+    return errors.toString();
+  }
 }
