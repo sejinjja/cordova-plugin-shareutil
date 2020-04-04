@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="cordova-plugin-shareutil" version="0.2.3">
+        id="cordova-plugin-shareutil" version="1.0.0">
   <name>Shareutil</name>
   <description>Cordova Shareutil Plugin</description>
   <license>MIT</license>
@@ -29,8 +29,6 @@
     </config-file>
 
     <source-file src="src/android/Shareutil.java" target-dir="src/kr/sejiwork/cordova/shareutil"/>
-    <source-file src="src/android/CordovaUri.java" target-dir="src/kr/sejiwork/cordova/shareutil"/>
-    <source-file src="src/android/FileHelper.java" target-dir="src/kr/sejiwork/cordova/shareutil"/>
     <source-file src="src/android/FileProvider.java" target-dir="src/kr/sejiwork/cordova/shareutil"/>
     <source-file src="src/android/xml/shareutil_provider_paths.xml" target-dir="res/xml"/>
     <framework src="com.android.support:support-v4:+" />
