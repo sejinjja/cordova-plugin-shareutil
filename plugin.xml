@@ -33,6 +33,7 @@
     <source-file src="src/android/FileHelper.java" target-dir="src/kr/sejiwork/cordova/shareutil"/>
     <source-file src="src/android/FileProvider.java" target-dir="src/kr/sejiwork/cordova/shareutil"/>
     <source-file src="src/android/xml/shareutil_provider_paths.xml" target-dir="res/xml"/>
+    <framework src="com.android.support:support-v4:+" />
   </platform>
   <platform name="ios">
     <config-file target="config.xml" parent="/*">
