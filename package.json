@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-shareutil",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cordova Shareutil Plugin",
   "cordova": {
     "id": "cordova-plugin-shareutil",
@@ -19,6 +19,9 @@
   "keywords": [
     "cordova",
     "device",
+    "share",
+    "share-image",
+    "share-text",
     "ecosystem:cordova",
     "cordova-android",
     "cordova-ios"
