@@ -24,10 +24,30 @@
         UIActivityViewController* activityViewController =
         [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        // fix crash on iOS8
-        if (IsAtLeastiOSVersion(@"8.0")) {
-            activityViewController.popoverPresentationController.sourceView = self.webView;
+        UIPopoverPresentationController *popover = activityViewController.popoverPresentationController;
+        if (popover) {
+            popover.permittedArrowDirections = 0;
+            popover.sourceView = self.webView.superview;
+            popover.sourceRect = CGRectMake(CGRectGetMidX(self.webView.bounds), CGRectGetMidY(self.webView.bounds), 0, 0);
         }
+
+        activityViewController.completionWithItemsHandler = ^(NSString *activityType,
+                                          BOOL completed,
+                                          NSArray *returnedItems,
+                                          NSError *error){
+            CDVPluginResult* pluginResult = NULL;
+            if (error) {
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
+            } else {
+                NSMutableArray *packageNames = [[NSMutableArray alloc] init];
+                if (completed) {
+                    [packageNames addObject:activityType];
+                }
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
+            }
+
+            [self.getTopPresentedViewController sendPluginResult:pluginResult callbackId:command.callbackId];
+        };
 
         [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
     } else {
@@ -52,10 +72,6 @@
 
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        // fix crash on iOS8
-        if (IsAtLeastiOSVersion(@"8.0")) {
-            activityViewController.popoverPresentationController.sourceView = self.webView;
-        }
 
         [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
     } else {
