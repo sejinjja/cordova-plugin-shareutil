@@ -16,7 +16,7 @@
         UIActivityViewController* activityViewController =
         [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.viewController presentViewController:activityViewController animated:YES completion:^{[self closedShare]}];
+        [self.viewController presentViewController:activityViewController animated:YES completion:^{[self.closedShare UIActivityViewController:activityViewController]}];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
@@ -39,7 +39,7 @@
 
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.viewController presentViewController:activityViewController animated:YES completion:^{[self closedShare]}];
+        [self.viewController presentViewController:activityViewController animated:YES completion:^{[self.closedShare UIActivityViewController:activityViewController]}];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
@@ -47,7 +47,7 @@
 
 }
 
-- (void)closedShare{
+- (void)closedShare:(UIActivityViewController*)activityViewController{
   // fix crash on iOS8
   if (IsAtLeastiOSVersion(@"8.0")) {
       activityViewController.popoverPresentationController.sourceView = self.webView;

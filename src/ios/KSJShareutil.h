@@ -4,6 +4,6 @@
 
 - (void)shareText:(CDVInvokedUrlCommand*)command;
 - (void)shareImg:(CDVInvokedUrlCommand*)command;
-- (void)closedShare;
+- (void)closedShare:(UIActivityViewController*)activityViewController;
 
 @end
