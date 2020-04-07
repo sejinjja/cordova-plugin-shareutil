@@ -16,11 +16,18 @@
         UIActivityViewController* activityViewController =
         [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.viewController presentViewController:activityViewController animated:NO completion:^{[self closedShare:activityViewController];[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];}];
+        // fix crash on iOS8
+        if (IsAtLeastiOSVersion(@"8.0")) {
+            activityViewController.popoverPresentationController.sourceView = self.webView;
+            activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+        }
+
+        [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     }
+
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
 }
 
@@ -38,19 +45,18 @@
 
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.viewController presentViewController:activityViewController animated:NO completion:^{[self closedShare:activityViewController];[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];}];
+        // fix crash on iOS8
+        if (IsAtLeastiOSVersion(@"8.0")) {
+            activityViewController.popoverPresentationController.sourceView = self.webView;
+            activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+        }
+
+        [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     }
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
-}
-
-- (void)closedShare:(UIActivityViewController*)activityViewController{
-  // fix crash on iOS8
-  if (IsAtLeastiOSVersion(@"8.0")) {
-      activityViewController.popoverPresentationController.sourceView = self.webView;
-  }
 }
 
 @end
