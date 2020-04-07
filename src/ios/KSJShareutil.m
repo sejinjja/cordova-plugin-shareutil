@@ -16,12 +16,11 @@
         UIActivityViewController* activityViewController =
         [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.viewController presentViewController:activityViewController animated:YES completion:^{[self closedShare:activityViewController];}];
+        [self.viewController presentViewController:activityViewController animated:NO completion:^{[self closedShare:activityViewController];[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];}];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     }
-
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
 }
 
@@ -39,11 +38,11 @@
 
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.viewController presentViewController:activityViewController animated:YES completion:^{[self closedShare:activityViewController];}];
+        [self.viewController presentViewController:activityViewController animated:NO completion:^{[self closedShare:activityViewController];[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];}];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     }
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
 }
 
