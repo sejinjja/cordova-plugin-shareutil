@@ -103,20 +103,6 @@
 
   float frameOriginYFloat = [frameOriginY floatValue];
 
-
-
-  CGRect frameRect = self.webView.frame;
-
-  frameRect.size.height = frameSizeHeightFloat;
-
-  frameRect.size.width = frameSizeWidthFloat;
-
-  frameRect.origin.x = frameOriginXFloat;
-
-  frameRect.origin.y = frameOriginYFloat;
-
-  self.webView.frame = frameRect;
-
   [UIView animateWithDuration:1.0 animations:^{
               self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameSizeWidthFloat, frameSizeHeightFloat);
           }];
