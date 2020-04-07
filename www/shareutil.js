@@ -21,7 +21,9 @@ module.exports = {
   resetRect() {
     if( this.rect ) {
       const {frameSizeHeight, frameSizeWidth, frameOriginX, frameOriginY} = this.rect
-      cordova.exec( console.log, console.error, 'Shareutil', 'resetRect', [frameSizeHeight, frameSizeWidth, frameOriginX, frameOriginY] )
+      return new Promise( ( resolve, reject ) => {
+        cordova.exec( resolve, reject, 'Shareutil', 'resetRect', [frameSizeHeight, frameSizeWidth, frameOriginX, frameOriginY] )
+      } )
     } else {
       return Promise.reject( 'rect is not found' )
     }
