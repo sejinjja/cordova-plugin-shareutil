@@ -38,7 +38,7 @@
                 }
             }
         };
-        [self.getTopPresentedViewController presentViewController:activityViewController animated:YES completion:NULL];
+        [self.getTopPresentedViewController presentViewController:activityViewController animated:NO completion:NULL];
     } else {
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -75,7 +75,7 @@
             }
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         };
-        [self.getTopPresentedViewController presentViewController:activityViewController animated:YES completion:NULL];
+        [self.getTopPresentedViewController presentViewController:activityViewController animated:NO completion:NULL];
     } else {
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
