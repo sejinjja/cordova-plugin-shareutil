@@ -71,13 +71,7 @@
 
     CGRect frameRect = self.webView.frame;
 
-    CGRect boundsRect = self.webView.bounds;
-
-
-
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[NSString stringWithFormat: @"{\"frameSizeHeight\" : %f, \"frameSizeWidth\" : %f, \"frameOriginX\" : %f, \"frameOriginY\" : %f, \"boundSizeHeight\" : %f, \"boundSizeWidth\" : %f, \"boundOriginX\" : %f, \"boundOriginY\" : %f}", frameRect.size.height, frameRect.size.width, frameRect.origin.x, frameRect.origin.y]];
-
-
 
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
@@ -103,6 +97,10 @@
 
   float frameOriginYFloat = [frameOriginY floatValue];
 
+  NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+  
+  CGRect frameRect = self.webView.frame;
+  self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameRect.size.width, frameRect.size.height);
   [UIView animateWithDuration:1.0 animations:^{
               self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameSizeWidthFloat, frameSizeHeightFloat);
           }];
