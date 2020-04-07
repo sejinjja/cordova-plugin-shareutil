@@ -25,14 +25,15 @@
             CDVPluginResult* pluginResult = NULL;
             if (error) {
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             } else {
-                NSMutableArray *packageNames = [[NSMutableArray alloc] init];
-                if (completed) {
+                if (completed || !activityType.length) {
+                    NSMutableArray *packageNames = [[NSMutableArray alloc] init];
                     [packageNames addObject:activityType];
+                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
+                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                 }
-                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
             }
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         };
         [self.getTopPresentedViewController presentViewController:activityViewController animated:YES completion:NULL];
     } else {
@@ -59,10 +60,12 @@
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
             } else {
                 NSMutableArray *packageNames = [[NSMutableArray alloc] init];
-                if (completed) {
+                if (completed || !activityType.length) {
+                    NSMutableArray *packageNames = [[NSMutableArray alloc] init];
                     [packageNames addObject:activityType];
+                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
+                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                 }
-                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
             }
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         };
