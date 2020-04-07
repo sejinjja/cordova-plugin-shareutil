@@ -10,6 +10,9 @@
 
 - (void) shareText:(CDVInvokedUrlCommand*)command{
     NSString *text = [command.arguments objectAtIndex:0];
+  [UIView animateWithDuration:1.0 animations:^{
+              self.webView.alpha = 1.0;
+          }];
     if (text != nil && [text length] > 0) {
         NSArray* dataToShare = @[text];
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
@@ -119,7 +122,7 @@
   CGRect frameRect = self.webView.frame;
   self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameRect.size.width, frameRect.size.height);
   [UIView animateWithDuration:1.0 animations:^{
-              self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameSizeWidthFloat, frameSizeHeightFloat);
+              self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameSizeWidthFloat, frameSizeHeightFloat);self.webView.alpha = 0.0;
           }];
 
 
