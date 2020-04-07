@@ -117,6 +117,10 @@
 
   self.webView.frame = frameRect;
 
+  [UIView animateWithDuration:1.0 animations:^{
+              self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameSizeWidthFloat, frameSizeHeightFloat);
+          }];
+
 
 
   CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
