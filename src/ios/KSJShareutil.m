@@ -16,7 +16,7 @@
         UIActivityViewController* activityViewController =
         [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
+        [self.navigationController presentViewController:activityViewController animated:NO completion:nil];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
@@ -39,7 +39,7 @@
 
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
+        [self.navigationController presentViewController:activityViewController animated:YES completion:nil];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
