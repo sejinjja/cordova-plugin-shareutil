@@ -16,9 +16,8 @@
     // Get the call back ID and echo argument
     NSString *text = [command.arguments objectAtIndex:0];
 
-    CDVPluginResult* result = nil;
     if (text != nil && [text length] > 0) {
-        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         NSArray* dataToShare = @[text];
 
         UIActivityViewController* activityViewController =
@@ -46,15 +45,14 @@
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
             }
 
-            [self.getTopPresentedViewController sendPluginResult:pluginResult callbackId:command.callbackId];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         };
 
-        [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
+        [self.getTopPresentedViewController sendPluginResult:pluginResult callbackId:command.callbackId];
     } else {
-        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
-
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
 }
 
