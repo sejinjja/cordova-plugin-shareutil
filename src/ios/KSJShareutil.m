@@ -4,10 +4,12 @@
 @implementation KSJShareutil
 
 - (void) shareText:(CDVInvokedUrlCommand*)command{
-    self.webView.frame.size.height += 548.0f;
-    self.webView.frame.size.width = 320.0f;
-    self.webView.frame.origin.x = 0.0f;
-    self.webView.frame.origin.y = 0.0f;
+    CGRect frameRect = self.webView.frame;
+    frameRect.size.height = 548.0f;
+    frameRect.size.width = 320.0f;
+    frameRect.origin.x = 0.0f;
+    frameRect.origin.y = 0.0f;
+    self.webView.frame = frameRect;
     NSLog(@"%@", NSStringFromCGRect(self.webView.bounds));
     NSLog(@"%@", NSStringFromCGRect(self.webView.frame));
 
