@@ -4,5 +4,6 @@
 
 - (void)shareText:(CDVInvokedUrlCommand*)command;
 - (void)shareImg:(CDVInvokedUrlCommand*)command;
+- (void)closedShare;
 
 @end

@@ -16,7 +16,7 @@
         UIActivityViewController* activityViewController =
         [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.navigationController presentViewController:activityViewController animated:NO completion:nil];
+        [self.viewController presentViewController:activityViewController animated:YES completion:^{[self closedShare]}];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
@@ -39,12 +39,19 @@
 
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
 
-        [self.navigationController presentViewController:activityViewController animated:YES completion:nil];
+        [self.viewController presentViewController:activityViewController animated:YES completion:^{[self closedShare]}];
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 
+}
+
+- (void)closedShare{
+  // fix crash on iOS8
+  if (IsAtLeastiOSVersion(@"8.0")) {
+      activityViewController.popoverPresentationController.sourceView = self.webView;
+  }
 }
 
 @end
