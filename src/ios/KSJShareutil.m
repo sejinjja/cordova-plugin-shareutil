@@ -1,115 +1,60 @@
 #import "KSJShareutil.h"
 #import <Cordova/CDV.h>
+
 @implementation KSJShareutil
 
 - (void) shareText:(CDVInvokedUrlCommand*)command{
-    NSString *text = [command.arguments objectAtIndex:0];
-    self.webView.alpha = 0.0;
 
+    // Get the call back ID and echo argument
+    NSString *text = [command.arguments objectAtIndex:0];
+
+    CDVPluginResult* result = nil;
     if (text != nil && [text length] > 0) {
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         NSArray* dataToShare = @[text];
-        UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
-        UIPopoverPresentationController *popover = activityViewController.popoverPresentationController;
-        if (popover) {
-            popover.permittedArrowDirections = 0;
-            popover.sourceView = self.webView.superview;
-            popover.sourceRect = CGRectMake(CGRectGetMidX(self.webView.bounds), CGRectGetMidY(self.webView.bounds), 0, 0);
+
+        UIActivityViewController* activityViewController =
+        [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
+
+        // fix crash on iOS8
+        if (IsAtLeastiOSVersion(@"8.0")) {
+            activityViewController.popoverPresentationController.sourceView = self.webView;
         }
 
-        activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *error){
-            CDVPluginResult* pluginResult = NULL;
-            if (error) {
-                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
-                [UIView animateWithDuration:0.7 animations:^{self.webView.alpha = 1.0;}];
-                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-            } else {
-                if (completed) {
-                    NSMutableArray *packageNames = [[NSMutableArray alloc] init];
-                    [packageNames addObject:activityType];
-                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
-                    [UIView animateWithDuration:0.7 animations:^{self.webView.alpha = 1.0;}];
-                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-                } else if(!activityType.length) {
-                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-                    [UIView animateWithDuration:0.7 animations:^{self.webView.alpha = 1.0;}];
-                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-                }
-            }
-        };
-        [self.getTopPresentedViewController presentViewController:activityViewController animated:NO completion:NULL];
+        [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
     } else {
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [UIView animateWithDuration:0.7 animations:^{self.webView.alpha = 1.0;}];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
+
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+
 }
 
 - (void) shareImg:(CDVInvokedUrlCommand*)command{
 
+    // Get the call back ID and echo argument
     NSString *base64 = [command.arguments objectAtIndex:0];
     NSString *mimeType = [command.arguments objectAtIndex:1];
-    self.webView.alpha = 0.0;
-
+    CDVPluginResult* result = nil;
     if (base64 != nil && [base64 length] > 0) {
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         NSData *data = [[NSData alloc]initWithBase64EncodedString:base64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
         UIImage* img = [UIImage imageWithData:data];
         NSArray* dataToShare = @[img];
+
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
-        activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *error){
-            CDVPluginResult* pluginResult = NULL;
-            if (error) {
-                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
-                [UIView animateWithDuration:0.7 animations:^{self.webView.alpha = 1.0;}];
-                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-            } else {
-                if (completed) {
-                    NSMutableArray *packageNames = [[NSMutableArray alloc] init];
-                    [packageNames addObject:activityType];
-                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
-                    [UIView animateWithDuration:0.7 animations:^{self.webView.alpha = 1.0;}];
-                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-                } else if(!activityType.length) {
-                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-                    [UIView animateWithDuration:0.7 animations:^{self.webView.alpha = 1.0;}];
-                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-                }
-            }
-        };
-        [self.getTopPresentedViewController presentViewController:activityViewController animated:NO completion:NULL];
+
+        // fix crash on iOS8
+        if (IsAtLeastiOSVersion(@"8.0")) {
+            activityViewController.popoverPresentationController.sourceView = self.webView;
+        }
+
+        [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
     } else {
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [UIView animateWithDuration:0.7 animations:^{self.webView.alpha = 1.0;}];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+
 }
 
-- (void)rememberRect:(CDVInvokedUrlCommand*)command{
-    CGRect frameRect = self.webView.frame;
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[NSString stringWithFormat: @"{\"frameSizeHeight\" : %f, \"frameSizeWidth\" : %f, \"frameOriginX\" : %f, \"frameOriginY\" : %f, \"boundSizeHeight\" : %f, \"boundSizeWidth\" : %f, \"boundOriginX\" : %f, \"boundOriginY\" : %f}", frameRect.size.height, frameRect.size.width, frameRect.origin.x, frameRect.origin.y]];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)resetRect:(CDVInvokedUrlCommand*)command{
-  NSString *frameSizeHeight = [command.arguments objectAtIndex:0];
-  float frameSizeHeightFloat = [frameSizeHeight floatValue];
-  NSString *frameSizeWidth = [command.arguments objectAtIndex:1];
-  float frameSizeWidthFloat = [frameSizeWidth floatValue];
-  NSString *frameOriginX = [command.arguments objectAtIndex:2];
-  float frameOriginXFloat = [frameOriginX floatValue];
-  NSString *frameOriginY = [command.arguments objectAtIndex:3];
-  float frameOriginYFloat = [frameOriginY floatValue];
-
-  self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameSizeWidthFloat, frameSizeHeightFloat);
-  self.webView.bounds = CGRectMake(0, 0, frameSizeWidthFloat, frameSizeHeightFloat);
-  CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
--(UIViewController *)getTopPresentedViewController {
-    UIViewController *presentingViewController = self.viewController;
-    while(presentingViewController.presentedViewController != nil && ![presentingViewController.presentedViewController isBeingDismissed]) {
-        presentingViewController = presentingViewController.presentedViewController;
-    }
-    return presentingViewController;
-}
 @end
