@@ -105,7 +105,7 @@
 
   float frameOriginYFloat = [frameOriginY floatValue];
 
-  NSLog(@"%@", NSStringFromCGRect(self.view.frame));
+  NSLog(@"%@", NSStringFromCGRect(self.webView.frame));
 
   CGRect frameRect = self.webView.frame;
   self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameRect.size.width, frameRect.size.height);
