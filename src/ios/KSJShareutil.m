@@ -13,6 +13,14 @@
     if (text != nil && [text length] > 0) {
         NSArray* dataToShare = @[text];
         UIActivityViewController* activityViewController = [[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
+
+        UIPopoverPresentationController *popover = activityViewController.popoverPresentationController;
+        if (popover) {
+            popover.permittedArrowDirections = 0;
+            popover.sourceView = self.webView.superview;
+            popover.sourceRect = CGRectMake(CGRectGetMidX(self.webView.bounds), CGRectGetMidY(self.webView.bounds), 0, 0);
+        }
+
         activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *error){
             CDVPluginResult* pluginResult = NULL;
             if (error) {
@@ -98,7 +106,7 @@
   float frameOriginYFloat = [frameOriginY floatValue];
 
   NSLog(@"%@", NSStringFromCGRect(self.view.frame));
-  
+
   CGRect frameRect = self.webView.frame;
   self.webView.frame = CGRectMake(frameOriginXFloat, frameOriginYFloat, frameRect.size.width, frameRect.size.height);
   [UIView animateWithDuration:1.0 animations:^{
