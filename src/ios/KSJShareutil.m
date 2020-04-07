@@ -4,7 +4,7 @@
 @implementation KSJShareutil
 
 - (void) shareText:(CDVInvokedUrlCommand*)command{
-    NSLog(@"%@", NSStringFromCGRect(self.view.bounds));
+    NSLog(@"%@", NSStringFromCGRect(self.webView.bounds));
 
     // Get the call back ID and echo argument
     NSString *text = [command.arguments objectAtIndex:0];
