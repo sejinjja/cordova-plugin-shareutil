@@ -19,7 +19,6 @@
         // fix crash on iOS8
         if (IsAtLeastiOSVersion(@"8.0")) {
             activityViewController.popoverPresentationController.sourceView = self.webView;
-            activityViewController.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
         }
 
         [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
@@ -48,7 +47,6 @@
         // fix crash on iOS8
         if (IsAtLeastiOSVersion(@"8.0")) {
             activityViewController.popoverPresentationController.sourceView = self.webView;
-            activityViewController.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
         }
 
         [self.viewController presentViewController:activityViewController animated:YES completion:^{}];
