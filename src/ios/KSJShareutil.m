@@ -27,10 +27,13 @@
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             } else {
-                if (completed || !activityType.length) {
+                if (completed) {
                     NSMutableArray *packageNames = [[NSMutableArray alloc] init];
                     [packageNames addObject:activityType];
                     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
+                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+                } else if(!activityType.length) {
+                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
                     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                 }
             }
@@ -60,10 +63,13 @@
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
             } else {
                 NSMutableArray *packageNames = [[NSMutableArray alloc] init];
-                if (completed || !activityType.length) {
+                if (completed) {
                     NSMutableArray *packageNames = [[NSMutableArray alloc] init];
                     [packageNames addObject:activityType];
                     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:packageNames];
+                    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+                } else if(!activityType.length) {
+                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
                     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
                 }
             }
